@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="emp.js"></script>
+    <link href="test1.css" rel="stylesheet" />
+  </head>
+  <body ng-app="Myemp">
+    <!-- it would still work if we remove Myemp, but when we mention
+    it as the Myemp it works are the main method all the body tags which 
+  we have used will still work because we have used ng-app 
+ng-controller only requests the model so we have to mention the ng-controller
+-->
+    <div ng-controller="empCtrl">
+      Rows to Display:<input
+        type="number"
+        step="1"
+        min="0"
+        max="6"
+        ng-model="rowlimit"
+      /><br /><br />
+      Search:<input
+        type="text"
+        placeholder="Search Employee"
+        ng-model="search"
+      /><br /><br />
+      <!-- to display the number of chac
+      how do we get elemetn by id 
+    so using ni-model to get the elements in Angularjs-->
+      Enter the Number of characters:<input
+        type="text"
+        ng-model="limit"
+      /><br /><br />
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>DOB</th>
+          <th>Gender</th>
+          <th>Salary(number)</th>
+          <!--"number"to display as decimal-->
+          <th>Salary(Currency)</th>
+          <!--"Salary" for the symbol-->
+        </tr>
+        <tbody>
+          <tr ng-repeat="emp in employees|limitTo:rowlimit|filter:search">
+            <!--ng is a two way data binging ng repeat is a for loop to call all the data one by one
+            all the employee info is availabe in emp
+          make sure its in same order as js file
+        limit is the option where the input it taken-->
+            <td>{{emp.name|myfilter:limit}}</td>
+            <!--meaning of | symbol is it givent the output of the name to myfilter-->
+            <td>{{emp.dob|date:"dd/MM/yyyy"}}</td>
+            <td>{{emp.gender|lowercase}}</td>
+            <td>{{emp.salary|number:0}}</td>
+            <td>&#8377;{{emp.salary|number:0}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
